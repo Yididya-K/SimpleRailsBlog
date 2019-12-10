@@ -1,0 +1,81 @@
+<div class="container">
+ <h1 class="mt-4 mb-3">
+        <%= @post.title %>
+      </h1>
+
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="index.html">Home</a>
+        </li>
+        <li class="breadcrumb-item active">Blog Home</li>
+      </ol>
+
+      <div class="row">
+
+        <!-- Blog Entries Column -->
+        <div class="col-md-8">
+
+          <!-- Blog Post -->
+          <div class="card mb-4">
+            
+            <div class="card-body">
+              <p class="card-text"><%= @post.body %></p>
+             
+            </div>
+            <div class="card-footer text-muted">
+              <%= link_to "Edit" , edit_post_path(@post),:class=>'btn btn-success'%>
+              <%= link_to "Delete" , post_path(@post),
+                                    method: :delete,
+                                    data:{confirm:"Are you sure you want to delete?"},
+                                    :class=>'btn btn-danger'%>
+            </div>
+          </div>
+          <ol class="breadcrumb">
+        </ol>
+          <h3>Comments</h3>
+           <% @post.comments.each do |comment|%>
+          <div class="card my-4">
+            <h5 class="card-header"><%= comment.username %></h5>
+            <div class="card-body">
+            <%= comment.body %>
+            </div>
+          </div>
+        <% end %>
+    
+</div>
+
+
+
+<div class="col-md-4">
+
+          <!-- Search Widget -->
+          <div class="card mb-4">
+            <h5 class="card-header">Add comment</h5>
+            <%= form_for([@post,@post.comments.build])  do |f| %>
+            <div class="card-body">
+              <div class="input-group" >
+              <p>
+            <br>
+                 <%= f.text_field(:username, {:class =>'form-control' ,:placeholder =>'username'}) %>
+                </P>
+                <br>
+                  <p>
+                     <br>
+                    <%= f.text_area(:body, {:class =>'form-control',:placeholder =>'comment'}) %>
+                    <p>
+
+                    
+                    
+                     <br>
+                  <p>
+                     <%= f.submit ({:class => 'btn btn-primary'})%>
+                     <p>
+               
+                <% end %>
+              </div>
+            </div>
+          </div>
+         
+      </div> 
+      
+</div>
